@@ -17,6 +17,7 @@ module EnumeratedField
 
         if options[:validate]
           include ActiveModel::Validations
+          # TODO update validation message to be more helpful than the default "is not included in the list"
           validates field_name, :inclusion => values_hash.keys
         end
 
