@@ -15,6 +15,18 @@ class Apple
   
 end
 
+class Banana
+  include EnumeratedField
+
+  attr_accessor :brand
+
+  enum_field :brand, [["Chiquita", :chiquita], ["Del Monte", :delmonte]], :validate => true
+
+  def initialize(brand)
+    self.brand = brand
+  end
+end
+
 class EnumeratedFieldTest < Test::Unit::TestCase
 
   def test_color_display
@@ -51,4 +63,12 @@ class EnumeratedFieldTest < Test::Unit::TestCase
     assert_equal apple.color_values(:first_option => "Select Color").length, 3
   end
 
+  def test_validation
+    banana = Banana.new(:chiquita)
+    assert banana.valid?
+
+    bad_banana = Banana.new(:penzoil)
+    assert !bad_banana.valid?
+    assert_equal ["is not included in the list"], bad_banana.errors[:brand]
+  end
 end

@@ -9,11 +9,16 @@ module EnumeratedField
     # ex. enum_field(:league, [['National Football League', :nfl], ['Major League Baseball', :mlb]])
     # field_name typically corresponds to the database column name
     # values_array is a double array (not a hash to preserve order for when order matters.. ie select options)    
-    def enum_field(field_name, values_array)
+    def enum_field(field_name, values_array, options = {})
       values_hash = {}
       values_array.each { |value, key| values_hash[key] = value }
-      
+
       class_eval do
+
+        if options[:validate]
+          include ActiveModel::Validations
+          validates field_name, :inclusion => values_hash.keys
+        end
 
         # returns the values_array for this field, useful for providing to 
         # options_for_select when constructing forms
