@@ -19,18 +19,18 @@ class EnumeratedFieldTest < Test::Unit::TestCase
 
   def test_color_display
     apple = Apple.new(:red, :fuji)
-    assert apple.color_display, 'Red'
+    assert_equal apple.color_display, 'Red'
   end
 
   def test_color_display_for
     apple = Apple.new(:red, :fuji)
-    assert apple.color_display_for(:green), 'Green'    
+    assert_equal apple.color_display_for(:green), 'Green'    
   end
 
   def test_two_enum_fields_in_one_class
     apple = Apple.new(:green, :delicious)
-    assert apple.color_display, 'Green'
-    assert apple.kind_display, 'Delicious Red Apple'
+    assert_equal apple.color_display, 'Green'
+    assert_equal apple.kind_display, 'Delicious Red Apple'
   end
 
   def test_question_methods
@@ -43,12 +43,12 @@ class EnumeratedFieldTest < Test::Unit::TestCase
 
   def test_values_without_first_option
     apple = Apple.new(:red, :fuji)
-    assert apple.color_values.length, 2
+    assert_equal apple.color_values.length, 2
   end
 
   def test_values_with_first_option
     apple = Apple.new(:red, :fuji)
-    assert apple.color_values(:first_option => "Select Color").length, 3
+    assert_equal apple.color_values(:first_option => "Select Color").length, 3
   end
 
 end
