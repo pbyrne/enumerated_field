@@ -64,11 +64,17 @@ class EnumeratedFieldTest < Test::Unit::TestCase
   end
 
   def test_validation
+    # valid choice
     banana = Banana.new(:chiquita)
     assert banana.valid?
 
+    # invalid choice
     bad_banana = Banana.new(:penzoil)
     assert !bad_banana.valid?
     assert_equal ["is not included in the list"], bad_banana.errors[:brand]
+
+    # no validations, accepts any choice
+    apple = Apple.new(:orange, :macintosh)
+    assert !apple.respond_to?(:valid)
   end
 end
