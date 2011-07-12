@@ -17,6 +17,7 @@ end
 
 class Banana
   include EnumeratedField
+  include ActiveModel::Validations
 
   attr_accessor :brand
 
