@@ -16,7 +16,6 @@ module EnumeratedField
       class_eval do
 
         if options[:validate]
-          # TODO update validation message to be more helpful than the default "is not included in the list"
           validates field_name, :inclusion => values_hash.keys
         end
 
