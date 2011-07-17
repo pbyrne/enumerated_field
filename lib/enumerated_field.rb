@@ -30,7 +30,7 @@ module EnumeratedField
       class_eval do
 
         define_method("#{field_name}_values") do |*options|
-          self.class.send("#{field_name}_values")
+          self.class.send("#{field_name}_values", *options)
         end
 
         # returns display value for the current value of the field
