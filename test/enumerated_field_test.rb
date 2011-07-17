@@ -5,8 +5,8 @@ class Apple
 
   attr_accessor :color, :kind
   
-  enum_field :color, [['Red', :red], ['Green', :green]]
-  enum_field :kind, [['Fuji Apple', :fuji], ['Delicious Red Apple', :delicious]]
+  enum_field :color, [['Red', :red], ['Green', :green]], :validate => false
+  enum_field :kind, [['Fuji Apple', :fuji], ['Delicious Red Apple', :delicious]], :validate => false
 
   def initialize(color, kind)
     self.color = color
@@ -21,7 +21,7 @@ class Banana
 
   attr_accessor :brand
 
-  enum_field :brand, [["Chiquita", :chiquita], ["Del Monte", :delmonte]], :validate => true
+  enum_field :brand, [["Chiquita", :chiquita], ["Del Monte", :delmonte]]
 
   def initialize(brand)
     self.brand = brand

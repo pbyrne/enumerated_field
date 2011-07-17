@@ -15,7 +15,7 @@ module EnumeratedField
 
       class_eval do
 
-        if options[:validate]
+        unless options[:validate] == false
           validates field_name, :inclusion => values_hash.keys
         end
 
