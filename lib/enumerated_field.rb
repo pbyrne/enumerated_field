@@ -33,6 +33,10 @@ module EnumeratedField
           validates field_name, :inclusion => values_hash.keys
         end
 
+        values_hash.each do |key, value|
+          const_set("#{field_name}_#{key}".upcase.to_sym, key)
+        end
+
         define_method("#{field_name}_values") do |*options|
           self.class.send("#{field_name}_values", *options)
         end

@@ -44,6 +44,10 @@ class EnumeratedFieldTest < Test::Unit::TestCase
       assert_equal Apple.color_values(:first_option => "Select Color").length, 3
     end
 
+    should 'create contstants for the field keys' do
+      assert_equal :chiquita, Banana::BRAND_CHIQUITA
+      assert_equal :delmonte, Banana::BRAND_DELMONTE
+    end
   end
 
   context 'EnumeratedField instance' do
