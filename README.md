@@ -60,6 +60,12 @@ these.
     > hike.trail_values   # useful to provide to options_for_select when constructing forms
     => [['Pacific Crest Trail', 'pct'], ['Continental Divide Trail', 'cdt'], ['Superior Hiking Trail', 'sht']]
 
+### Use Constants for Keys
+
+    > Hike::TRAIL_PCT
+    => :pct
+    > Hike::TRAIL_SHT
+    => :sht
 
 These methods are all prefixed with the field name by design, which allows multiple fields on a model to exist which potentially have the same values.
 
