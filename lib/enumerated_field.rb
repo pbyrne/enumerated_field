@@ -9,7 +9,7 @@ module EnumeratedField
     # ex. enum_field(:league, [['National Football League', :nfl], ['Major League Baseball', :mlb]])
     # field_name typically corresponds to the database column name
     # values_array is a double array (not a hash to preserve order for when order matters.. ie select options)    
-    def enum_field(field_name, values_array)
+    def enum_field(field_name, values_array, options = {})
       values_hash = {}
       values_array.each { |value, key| values_hash[key] = value }
 
@@ -28,6 +28,10 @@ module EnumeratedField
       end
 
       class_eval do
+
+        unless options[:validate] == false
+          validates field_name, :inclusion => values_hash.keys
+        end
 
         define_method("#{field_name}_values") do |*options|
           self.class.send("#{field_name}_values", *options)

@@ -4,15 +4,28 @@ class Apple
   include EnumeratedField
 
   attr_accessor :color, :kind
-
-  enum_field :color, [['Red', :red], ['Green', :green]]
-  enum_field :kind, [['Fuji Apple', :fuji], ['Delicious Red Apple', :delicious]]
+  
+  enum_field :color, [['Red', :red], ['Green', :green]], :validate => false
+  enum_field :kind, [['Fuji Apple', :fuji], ['Delicious Red Apple', :delicious]], :validate => false
 
   def initialize(color, kind)
     self.color = color
     self.kind = kind
   end
 
+end
+
+class Banana
+  include EnumeratedField
+  include ActiveModel::Validations
+
+  attr_accessor :brand
+
+  enum_field :brand, [["Chiquita", :chiquita], ["Del Monte", :delmonte]]
+
+  def initialize(brand)
+    self.brand = brand
+  end
 end
 
 class EnumeratedFieldTest < Test::Unit::TestCase
@@ -70,4 +83,22 @@ class EnumeratedFieldTest < Test::Unit::TestCase
 
   end
 
+  context 'Validatin' do
+    should 'validate by default' do
+      # valid choice
+      banana = Banana.new(:chiquita)
+      assert banana.valid?
+
+      # invalid choice
+      bad_banana = Banana.new(:penzoil)
+      assert !bad_banana.valid?
+      assert_equal ["is not included in the list"], bad_banana.errors[:brand]
+    end
+
+    should 'not validate if passed :validate => false' do
+      # no validations, accepts any choice
+      apple = Apple.new(:orange, :macintosh)
+      assert !apple.respond_to?(:valid)
+    end
+  end
 end
