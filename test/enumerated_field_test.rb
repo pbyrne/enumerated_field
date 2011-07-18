@@ -87,8 +87,8 @@ class EnumeratedFieldTest < Test::Unit::TestCase
 
   end
 
-  context 'Validatin' do
-    should 'validate by default' do
+  context 'Validation' do
+    should 'occur by default' do
       # valid choice
       banana = Banana.new(:chiquita)
       assert banana.valid?
@@ -99,7 +99,7 @@ class EnumeratedFieldTest < Test::Unit::TestCase
       assert_equal ["is not included in the list"], bad_banana.errors[:brand]
     end
 
-    should 'not validate if passed :validate => false' do
+    should 'not occur if passed :validate => false' do
       # no validations, accepts any choice
       apple = Apple.new(:orange, :macintosh)
       assert !apple.respond_to?(:valid)
