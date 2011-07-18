@@ -57,7 +57,9 @@ these.
 
 ### List Available Values
 
-    > hike.trail_values   # useful to provide to options_for_select when constructing forms
+    > hike.trail_values # useful to provide to options_for_select when constructing forms
+    => [['Pacific Crest Trail', 'pct'], ['Continental Divide Trail', 'cdt'], ['Superior Hiking Trail', 'sht']]
+    > Hike.trail_values # or get it from the class instead of the instance, if you like
     => [['Pacific Crest Trail', 'pct'], ['Continental Divide Trail', 'cdt'], ['Superior Hiking Trail', 'sht']]
 
 ### Use Constants for Keys
@@ -69,7 +71,10 @@ these.
 
 These methods are all prefixed with the field name by design, which allows multiple fields on a model to exist which potentially have the same values.
 
-Run tests by:  ruby test/enumerated_field_test.rb
+## TESTS
+
+Run tests with `bundle exec rake test` (or just `rake test` if you're
+daring).
 
 ## TODO
 
