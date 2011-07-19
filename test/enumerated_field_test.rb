@@ -20,11 +20,14 @@ class Banana
   include ActiveModel::Validations
 
   attr_accessor :brand
+  attr_accessor :color
 
   enum_field :brand, [["Chiquita", :chiquita], ["Del Monte", :delmonte]]
+  enum_field :color, [["Awesome Yellow", :yellow], ["Icky Green", :green]], :allow_nil => true
 
-  def initialize(brand)
+  def initialize(brand, color)
     self.brand = brand
+    self.color = color
   end
 end
 
@@ -90,13 +93,20 @@ class EnumeratedFieldTest < Test::Unit::TestCase
   context 'Validation' do
     should 'occur by default' do
       # valid choice
-      banana = Banana.new(:chiquita)
+      banana = Banana.new(:chiquita, :green)
       assert banana.valid?
 
       # invalid choice
-      bad_banana = Banana.new(:penzoil)
+      bad_banana = Banana.new(:penzoil, :orange)
       assert !bad_banana.valid?
       assert_equal ["is not included in the list"], bad_banana.errors[:brand]
+      assert_equal ["is not included in the list"], bad_banana.errors[:color]
+
+      # invalid choice (brand doesn't allow nil, color does)
+      nil_banana = Banana.new(nil, nil)
+      assert !nil_banana.valid?
+      assert_equal ["is not included in the list"], nil_banana.errors[:brand]
+      assert_equal [], nil_banana.errors[:color]
     end
 
     should 'not occur if passed :validate => false' do

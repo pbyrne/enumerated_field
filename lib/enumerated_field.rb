@@ -30,7 +30,7 @@ module EnumeratedField
       class_eval do
 
         unless options[:validate] == false
-          validates field_name, :inclusion => values_hash.keys
+          validates field_name, :inclusion => values_hash.keys, :allow_nil => options[:allow_nil]
         end
 
         values_hash.each do |key, value|

@@ -2,9 +2,20 @@ EnumeratedField is a library that provides some nice methods when a string colum
 
 ## Usage
 
+    enum_field(field_name, choices, options = {})
+
+Available options are:
+
+* `:validate`, whether to validate that the value is in the given list
+  of choices. Defaults to true.
+* `:allow_nil`, whether a nil value passes validation. Defaults to
+  false.
+
 The default validation uses ActiveModel's inclusion validations. If using on a
 class without ActiveModel use `:validate => false` to disable
 these.
+
+## Example
 
     class Hike < ActiveRecord::Base
       include EnumeratedField
