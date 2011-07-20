@@ -41,7 +41,8 @@ module EnumeratedField
         end
 
         values_hash.each do |key, value|
-          const_set("#{field_name}_#{key}".upcase.to_sym, key)
+          const_name = "#{field_name}_#{key}".upcase.gsub(/[^\w_]/, "_").to_sym
+          const_set(const_name, key)
         end
 
         define_method("#{field_name}_values") do |*options|

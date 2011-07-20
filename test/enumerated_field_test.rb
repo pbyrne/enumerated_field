@@ -21,9 +21,16 @@ class Banana
 
   attr_accessor :brand
   attr_accessor :color
+  attr_accessor :tastiness
 
   enum_field :brand, [["Chiquita", :chiquita], ["Del Monte", :delmonte]]
   enum_field :color, [["Awesome Yellow", :yellow], ["Icky Green", :green]], :allow_nil => true
+  # stressing the constantizing of the keys
+  enum_field :tastiness, [
+    ["Great", "great!"],
+    ["Good", "it's good"],
+    ["Bad", "hate-hate"],
+  ], :validate => false
 
   def initialize(brand, color)
     self.brand = brand
@@ -50,6 +57,12 @@ class EnumeratedFieldTest < Test::Unit::TestCase
     should 'create contstants for the field keys' do
       assert_equal :chiquita, Banana::BRAND_CHIQUITA
       assert_equal :delmonte, Banana::BRAND_DELMONTE
+    end
+
+    should 'create underscored constants from field keys which contain invalid constant name characters' do
+      assert_equal "great!", Banana::TASTINESS_GREAT_
+      assert_equal "it's good", Banana::TASTINESS_IT_S_GOOD
+      assert_equal "hate-hate", Banana::TASTINESS_HATE_HATE
     end
   end
 
