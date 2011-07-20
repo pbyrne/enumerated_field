@@ -12,6 +12,12 @@ module EnumeratedField
     def enum_field(field_name, values_array, options = {})
       values_hash = {}
       values_array.each { |value, key| values_hash[key] = value }
+      default_options = {
+        :validate => true,
+        :allow_nil => false,
+        :allow_blank => false,
+      }
+      options = default_options.merge(options)
 
       # returns the values_array for this field, useful for providing to
       # options_for_select when constructing forms
@@ -30,7 +36,8 @@ module EnumeratedField
       class_eval do
 
         unless options[:validate] == false
-          validates field_name, :inclusion => values_hash.keys, :allow_nil => options[:allow_nil]
+          validates field_name, :inclusion => values_hash.keys,
+            :allow_nil => options[:allow_nil], :allow_blank => options[:allow_blank]
         end
 
         values_hash.each do |key, value|

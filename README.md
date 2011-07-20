@@ -10,6 +10,8 @@ Available options are:
   of choices. Defaults to true.
 * `:allow_nil`, whether a nil value passes validation. Defaults to
   false.
+* `:allow_blank`, whether a blank (nil, "") value passes validation.
+  Defaults to false.
 
 The default validation uses ActiveModel's inclusion validations. If using on a
 class without ActiveModel use `:validate => false` to disable
