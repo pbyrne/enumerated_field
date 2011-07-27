@@ -55,8 +55,8 @@ class EnumeratedFieldTest < Test::Unit::TestCase
     end
 
     should 'create contstants for the field keys' do
-      assert_equal :chiquita, Banana::BRAND_CHIQUITA
-      assert_equal :delmonte, Banana::BRAND_DELMONTE
+      assert_equal "chiquita", Banana::BRAND_CHIQUITA
+      assert_equal "delmonte", Banana::BRAND_DELMONTE
     end
 
     should 'create underscored constants from field keys which contain invalid constant name characters' do
@@ -79,6 +79,7 @@ class EnumeratedFieldTest < Test::Unit::TestCase
 
     should 'show Green for color_display of green' do
       assert_equal @red_apple.color_display_for(:green), 'Green'
+      assert_equal @red_apple.color_display_for('green'), 'Green'
     end
 
     should 'have two enum fields in one class' do

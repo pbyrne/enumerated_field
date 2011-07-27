@@ -1,3 +1,6 @@
+require "active_model"
+require "active_support/hash_with_indifferent_access"
+
 module EnumeratedField
 
   def self.included(klass)
@@ -10,7 +13,7 @@ module EnumeratedField
     # field_name typically corresponds to the database column name
     # values_array is a double array (not a hash to preserve order for when order matters.. ie select options)    
     def enum_field(field_name, values_array, options = {})
-      values_hash = {}
+      values_hash = ActiveSupport::HashWithIndifferentAccess.new
       values_array.each { |value, key| values_hash[key] = value }
       default_options = {
         :validate => true,
@@ -37,8 +40,12 @@ module EnumeratedField
 
         unless options[:validate] == false
           valid_values = values_hash.keys
-          valid_values += values_hash.keys.map do |key|
-            key.is_a?(String) ? key.to_sym : key.to_s
+          values_hash.keys.map do |key|
+            if key.is_a?(String) and not key.blank?
+              valid_values << key.to_sym
+            else
+              valid_values << key.to_s
+            end
           end
           validates field_name, :inclusion => valid_values,
             :allow_nil => options[:allow_nil], :allow_blank => options[:allow_blank]
@@ -71,7 +78,7 @@ module EnumeratedField
         # ex.  object.league_nfl?  which returns true if the objects league 
         # field is currently set to nfl otherwise false
         values_hash.keys.each do |key|
-          define_method("#{field_name}_#{key}?") { send(field_name) == key }
+          define_method("#{field_name}_#{key}?") { send(field_name).to_s == key.to_s }
         end
 
       end
