@@ -25,7 +25,7 @@ module EnumeratedField
       # returns the values_array for this field, useful for providing to
       # options_for_select when constructing forms
       enumerated_class = class << self; self; end
-      enumerated_class.instance_eval do
+      enumerated_class.class_eval do
         define_method("#{field_name}_values") do |*options|
           options = options.first || {}
           if options[:first_option]
