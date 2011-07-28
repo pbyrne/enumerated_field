@@ -1,4 +1,4 @@
 require 'test/unit'
 require 'turn'
 require 'shoulda'
-require 'lib/enumerated_field'
+require 'enumerated_field'
