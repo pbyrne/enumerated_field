@@ -131,7 +131,7 @@ class EnumeratedFieldTest < Test::Unit::TestCase
 
     should 'accept valid string equivalent to symbol in list' do
       banana = Banana.new('chiquita', :green)
-      assert banana.valid?, banana.errors[:brand][0]
+      assert banana.valid?, banana.errors[:brand][0].to_s
     end
   end
 end
