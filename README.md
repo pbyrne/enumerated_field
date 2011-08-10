@@ -1,4 +1,9 @@
-EnumeratedField is a library that provides some nice methods when a string column is used like an enumeration, meaning there is a list of allowable values for the string column. Typically you want the display value as seen by the end user to differ from the stored value, allowing you to easily change the display value at anytime without migrating data, and this little gem helps you with that.
+EnumeratedField is a library that provides some nice methods when a
+string column is used like an enumeration, meaning there is a list of
+allowable values for the string column. Typically you want the display
+value as seen by the end user to differ from the stored value, allowing
+you to easily change the display value at anytime without migrating
+data, and this little gem helps you with that.
 
 ## Usage
 
@@ -13,8 +18,8 @@ Available options are:
 * `:allow_blank`, whether a blank (nil, "") value passes validation.
   Defaults to false.
 
-The default validation uses ActiveModel's inclusion validations. If using on a
-class without ActiveModel use `:validate => false` to disable
+The default validation uses ActiveModel's inclusion validations. If
+using on a class without ActiveModel use `:validate => false` to disable
 these.
 
 ## Example
@@ -82,7 +87,9 @@ these.
     > Hike::TRAIL_SHT
     => :sht
 
-These methods are all prefixed with the field name by design, which allows multiple fields on a model to exist which potentially have the same values.
+These methods are all prefixed with the field name by design, which
+allows multiple fields on a model to exist which potentially have the
+same values.
 
 ## TESTS
 
